@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>22 Mayıs — Tarihin Akışı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #050510;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .playfair {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050510;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.15);
+      border-radius: 3px;
+    }
+
+    /* Star Canvas */
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(120,80,200,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 2s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-subtitle {
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+      margin: 24px auto;
+    }
+
+    .hero-desc {
+      color: rgba(255,255,255,0.4);
+      font-size: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .hero-special {
+      color: rgba(255,255,255,0.6);
+      font-style: italic;
+      margin-top: 12px;
+      font-size: 1.1rem;
+    }
+
+    .hero-special span {
+      color: rgba(251,191,36,0.6);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s ease-out 1.5s forwards;
+    }
+
+    .scroll-hint span {
+      color: rgba(255,255,255,0.25);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .scroll-mouse {
+      width: 20px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+    }
+
+    .scroll-dot {
+      width: 2px;
+      height: 10px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      animation: scrollBounce 1.5s infinite;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(6px); opacity: 0.5; }
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      position: relative;
+      padding: 60px 20px;
+      z-index: 1;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header p {
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    .section-header .divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+      margin: 16px auto 0;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), rgba(251,191,36,0.2));
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 18px;
+        transform: none;
+      }
+    }
+
+    .timeline-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row;
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        flex-direction: row;
+      }
+    }
+
+    .timeline-card {
+      width: calc(50% - 40px);
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .timeline-item.highlight .timeline-card {
+      background: rgba(251,191,36,0.05);
+      border-color: rgba(251,191,36,0.15);
+    }
+
+    .timeline-item.highlight .timeline-card:hover {
+      background: rgba(251,191,36,0.08);
+      border-color: rgba(251,191,36,0.25);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-card {
+        width: calc(100% - 50px);
+        margin-left: 40px;
+      }
+    }
+
+    .timeline-item:nth-child(odd) .timeline-card {
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) .timeline-card {
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-item:nth-child(odd) .timeline-card,
+      .timeline-item:nth-child(even) .timeline-card {
+        text-align: left;
+      }
+    }
+
+    .card-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .timeline-item:nth-child(odd) .card-content {
+      flex-direction: row-reverse;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-item:nth-child(odd) .card-content {
+        flex-direction: row;
+      }
+    }
+
+    .card-emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .card-text {
+      min-width: 0;
+    }
+
+    .card-year {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2px;
+    }
+
+    .timeline-item.highlight .card-year {
+      background: linear-gradient(to right, #fcd34d, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .timeline-item.highlight .card-title {
+      color: rgba(251,191,36,0.8);
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.5;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.4s ease;
+    }
+
+    .timeline-item.visible .timeline-dot {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .timeline-item.highlight .timeline-dot {
+      background: #fbbf24;
+      box-shadow: 0 0 15px rgba(251,191,36,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-dot {
+        left: 18px;
+        width: 8px;
+        height: 8px;
+      }
+    }
+
+    .timeline-spacer {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-spacer {
+        display: none;
+      }
+    }
+
+    /* Transition to finale */
+    .transition-text {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .transition-text p {
+      color: rgba(255,255,255,0.2);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .transition-text .italic-text {
+      color: rgba(255,255,255,0.3);
+      font-style: italic;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .transition-line {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(251,191,36,0.5));
+      margin: 24px auto 0;
+    }
+
+    /* Final Reveal */
+    .final-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .final-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(251,191,36,0.08) 0%, rgba(120,80,200,0.04) 40%, transparent 70%);
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .final-glow.visible {
+      opacity: 1;
+    }
+
+    .final-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .final-pretext {
+      color: rgba(255,255,255,0.2);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.2s ease;
+    }
+
+    .final-pretext.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .final-year {
+      font-size: clamp(5rem, 20vw, 12rem);
+      font-weight: 700;
+      background: linear-gradient(to bottom, #fde68a, #f59e0b, #b45309);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+      transition: all 1.5s ease;
+      filter: drop-shadow(0 0 60px rgba(251,191,36,0.2));
+    }
+
+    .final-year.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .final-date {
+      font-style: italic;
+      font-size: 1.3rem;
+      color: rgba(251,191,36,0.6);
+      letter-spacing: 0.15em;
+      margin-top: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.2s ease;
+    }
+
+    .final-date.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .final-divider {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(251,191,36,0.5), transparent);
+      margin: 30px auto;
+      transition: width 1.5s ease;
+    }
+
+    .final-divider.visible {
+      width: 200px;
+    }
+
+    .final-wings {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 2s ease;
+      filter: drop-shadow(0 0 40px rgba(251,191,36,0.25));
+    }
+
+    .final-wings.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (min-width: 768px) {
+      .final-wings {
+        width: 220px;
+        height: 220px;
+      }
+    }
+
+    .final-message {
+      margin-top: 24px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.5s ease;
+    }
+
+    .final-message.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .final-message h2 {
+      font-size: clamp(1.8rem, 6vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .final-message h2 span {
+      background: linear-gradient(to right, #fde68a, #fcd34d, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .final-message .sub {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      margin-top: 12px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-emotional {
+      margin-top: 32px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.8s ease;
+    }
+
+    .final-emotional.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .emotional-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 24px 32px;
+      max-width: 450px;
+      margin: 0 auto;
+      backdrop-filter: blur(10px);
+    }
+
+    .emotional-box p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .emotional-box p span {
+      color: rgba(251,191,36,0.8);
+      font-weight: 500;
+    }
+
+    .emotional-box .highlight-text {
+      font-style: italic;
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+      margin-top: 16px;
+    }
+
+    .final-cake {
+      font-size: 3.5rem;
+      margin-top: 40px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .final-wishes {
+      margin-top: 32px;
+    }
+
+    .final-wishes p {
+      font-style: italic;
+      margin: 8px 0;
+    }
+
+    .final-wishes p:nth-child(1) {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+    }
+
+    .final-wishes p:nth-child(2) {
+      color: rgba(255,255,255,0.6);
+      font-size: 1.1rem;
+    }
+
+    .final-wishes p:nth-child(3) {
+      color: rgba(251,191,36,0.5);
+      font-size: 1.2rem;
+      margin-top: 12px;
+    }
+
+    .final-hearts {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 40px;
+      font-size: 1.5rem;
+    }
+
+    .final-hearts span {
+      animation: pulse 1.5s infinite;
+    }
+
+    .final-hearts span:nth-child(1) { animation-delay: 0s; }
+    .final-hearts span:nth-child(2) { animation-delay: 0.2s; }
+    .final-hearts span:nth-child(3) { animation-delay: 0.4s; }
+    .final-hearts span:nth-child(4) { animation-delay: 0.6s; }
+    .final-hearts span:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(251,191,36,0.3);
+      pointer-events: none;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    footer .divider {
+      width: 48px;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 auto 24px;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.2);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+    }
+
+    /* Selection */
+    ::selection {
+      background: rgba(251,191,36,0.3);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Star Background -->
+  <canvas id="stars"></canvas>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">Her yıl bu tarihte dünya döndü, tarih yazıldı</p>
+      <h1 class="hero-title playfair">22 Mayıs</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-desc">1933'ten başlayarak her 22 Mayıs'ta neler olduğunu keşfet...</p>
+      <p class="hero-special playfair">Ta ki <span>o özel güne</span> kadar.</p>
+    </div>
+    <div class="scroll-hint">
+      <span>Aşağı Kaydır</span>
+      <div class="scroll-mouse">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="section-header">
+      <p>22 Mayıs'ta neler oldu?</p>
+      <h2 class="playfair">Tarih Yazılıyordu...</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="timeline" id="timeline">
+      <!-- Timeline items will be inserted here by JS -->
+    </div>
+
+    <div class="transition-text">
+      <p>ve sonra...</p>
+      <p class="italic-text">bütün bu olaylardan sonra...</p>
+      <div class="transition-line"></div>
+    </div>
+  </section>
+
+  <!-- Final Reveal -->
+  <section class="final-section" id="final">
+    <div class="final-glow" id="finalGlow"></div>
+    <div id="particles"></div>
+    <div class="final-content">
+      <p class="final-pretext" id="finalPretext">1933'ten 2006'ya kadar her 22 Mayıs'ta tarih yazıldı...</p>
+      <div class="final-year playfair" id="finalYear">2007</div>
+      <div class="final-date playfair" id="finalDate">22 Mayıs</div>
+      <div class="final-divider" id="finalDivider"></div>
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 160'%3E%3Cdefs%3E%3ClinearGradient id='wingGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23fde68a'/%3E%3Cstop offset='50%25' style='stop-color:%23fbbf24'/%3E%3Cstop offset='100%25' style='stop-color:%23f59e0b'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='3' result='coloredBlur'/%3E%3CfeMerge%3E%3CfeMergeNode in='coloredBlur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23glow)' opacity='0.9'%3E%3Cpath d='M100 80 Q60 60 30 70 Q10 75 5 90 Q0 105 15 110 Q30 115 50 105 Q70 95 85 85 Q95 78 100 80' fill='url(%23wingGrad)'/%3E%3Cpath d='M100 80 Q140 60 170 70 Q190 75 195 90 Q200 105 185 110 Q170 115 150 105 Q130 95 115 85 Q105 78 100 80' fill='url(%23wingGrad)'/%3E%3Cpath d='M100 80 Q70 50 45 55 Q25 58 15 70 Q5 82 20 90 Q40 100 65 90 Q85 82 100 80' fill='url(%23wingGrad)' opacity='0.7'/%3E%3Cpath d='M100 80 Q130 50 155 55 Q175 58 185 70 Q195 82 180 90 Q160 100 135 90 Q115 82 100 80' fill='url(%23wingGrad)' opacity='0.7'/%3E%3Cpath d='M100 80 Q80 45 60 50 Q45 52 40 62 Q35 72 50 78 Q70 85 90 80 Q98 78 100 80' fill='url(%23wingGrad)' opacity='0.5'/%3E%3Cpath d='M100 80 Q120 45 140 50 Q155 52 160 62 Q165 72 150 78 Q130 85 110 80 Q102 78 100 80' fill='url(%23wingGrad)' opacity='0.5'/%3E%3Ccircle cx='100' cy='80' r='8' fill='%23fef3c7'/%3E%3Ccircle cx='100' cy='80' r='4' fill='%23fbbf24'/%3E%3C/g%3E%3Cg opacity='0.4'%3E%3Ccircle cx='30' cy='50' r='2' fill='%23fde68a'%3E%3Canimate attributeName='opacity' values='0.3;1;0.3' dur='2s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='170' cy='45' r='1.5' fill='%23fde68a'%3E%3Canimate attributeName='opacity' values='0.5;1;0.5' dur='1.5s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='50' cy='30' r='1' fill='%23fcd34d'%3E%3Canimate attributeName='opacity' values='0.4;1;0.4' dur='2.5s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='150' cy='35' r='1.5' fill='%23fcd34d'%3E%3Canimate attributeName='opacity' values='0.3;0.9;0.3' dur='1.8s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='85' cy='25' r='1' fill='%23fef3c7'%3E%3Canimate attributeName='opacity' values='0.5;1;0.5' dur='2.2s' repeatCount='indefinite'/%3E%3C/circle%3E%3Ccircle cx='115' cy='28' r='1.2' fill='%23fef3c7'%3E%3Canimate attributeName='opacity' values='0.4;0.9;0.4' dur='1.7s' repeatCount='indefinite'/%3E%3C/circle%3E%3C/g%3E%3C/svg%3E" alt="Melek Kanatları" class="final-wings" id="finalWings">
+      <div class="final-message" id="finalMessage">
+        <h2 class="playfair">Dünyaya bir <span>melek</span> geldi</h2>
+        <p class="sub">Yıllar boyunca savaşlar yapıldı, barışlar kuruldu, rekorlar kırıldı...</p>
+      </div>
+      <div class="final-emotional" id="finalEmotional">
+        <div class="emotional-box">
+          <p>Ama <span>22 Mayıs 2007</span>'de olan şey, hepsinden güzeldi.</p>
+          <p class="highlight-text playfair">Sen dünyaya geldin. 💛</p>
+        </div>
+        <div class="final-cake">🎂</div>
+        <div class="final-wishes playfair">
+          <p>İyi ki doğdun.</p>
+          <p>İyi ki varsın.</p>
+          <p>İyi ki sensin. ✨</p>
+        </div>
+        <div class="final-hearts">
+          <span>💛</span>
+          <span>🤍</span>
+          <span>💛</span>
+          <span>🤍</span>
+          <span>💛</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="divider"></div>
+    <p>✨ sana özel yapıldı ✨</p>
+  </footer>
+
+  <script>
+    // Timeline Data
+    const timelineData = [
+      { year: 1933, title: "Dünya Ticaret Günü İlk Kez Kutlandı", desc: "Dünya Ticaret Günü ve Ulusal Denizcilik Günü ilk kez kutlandı.", emoji: "⚓" },
+      { year: 1936, title: "Aer Lingus Kuruldu", desc: "İrlanda Cumhuriyeti'nin ulusal havayolu şirketi Aer Lingus resmen kuruldu.", emoji: "✈️" },
+      { year: 1938, title: "Ebbets Field'a Işıklar Geldi", desc: "Dodgers, Ebbets Field'a ışık sistemi kurulması için sözleşme imzaladığını duyurdu.", emoji: "💡" },
+      { year: 1939, title: "Çelik Pakt İmzalandı", desc: "Hitler ve Mussolini 'Çelik Pakt'ı imzaladı. Roma-Berlin Mihveri resmen kuruldu.", emoji: "⚔️", highlight: true },
+      { year: 1940, title: "Churchill Paris'i Kurtarmaya Çalıştı", desc: "İngiltere Başbakanı Churchill, General Weygand ile Paris'i kurtarma stratejisi belirlemek için Paris'e uçtu.", emoji: "🇬🇧", highlight: true },
+      { year: 1941, title: "Bağdat'a Saldırı", desc: "İngiliz kuvvetleri Bağdat'a saldırdı.", emoji: "💥" },
+      { year: 1942, title: "Meksika Savaşa Girdi", desc: "Meksika, Nazi Almanyası ve Japonya'ya savaş ilan etti.", emoji: "🇲🇽" },
+      { year: 1945, title: "Okinawa'da İlerleme", desc: "6. ABD Deniz Piyade tümeni Naha, Okinawa varoşlarına ulaştı.", emoji: "🎖️" },
+      { year: 1947, title: "Truman Doktrini Yürürlüğe Girdi", desc: "Truman Doktrini yürürlüğe girdi, Türkiye ve Yunanistan'a yardım başladı.", emoji: "🚀", highlight: true },
+      { year: 1949, title: "Newcombe'un Muhteşem Başlangıcı", desc: "Brooklyn Dodgers'tan Don Newcombe, ilk MLB maçında Cincinnati'yi susturarak 3-0 kazandı.", emoji: "⚾" },
+      { year: 1950, title: "Strauss'un Son Şarkıları", desc: "Richard Strauss'un '4 Son Şarkı' eseri Londra'da ilk kez seslendirildi. Celal Bayar Türkiye Cumhurbaşkanı seçildi.", emoji: "🎶" },
+      { year: 1953, title: "Açık Deniz Petrol Yasası", desc: "ABD Başkanı Eisenhower Açık Deniz Petrol Yasası'nı imzaladı.", emoji: "🛢️" },
+      { year: 1956, title: "Bob Hope Show Finale Yaptı", desc: "'Bob Hope Show' NBC-TV'de son bölümüyle yayınlandı.", emoji: "📺" },
+      { year: 1958, title: "Seagram Binası Açıldı", desc: "Mies van der Rohe'nin tasarladığı modernist gökdelen Seagram Binası Manhattan'da açıldı.", emoji: "🏙️" },
+      { year: 1960, title: "Tarihin En Büyük Depremi", desc: "Şili'de 9.5 büyüklüğünde deprem! Tarihin en güçlü kaydedilen depremi.", emoji: "🌊", highlight: true },
+      { year: 1961, title: "Ernie K-Doe Listelerde 1 Numara", desc: "Allen Toussaint'in yazdığı 'Mother-In-Law' single'ı 1 numaraya yükseldi.", emoji: "🎵" },
+      { year: 1962, title: "Emmy Ödülleri Gecesi", desc: "14. Emmy Ödülleri: Bob Newhart Show, E.G. Marshall ve Shirley Booth kazandı.", emoji: "🏆" },
+      { year: 1963, title: "Mickey Mantle Efsanesi", desc: "Mickey Mantle, topu Yankee Stadyumu'nun cephesine vurdu. Efsanevi bir an.", emoji: "⚾", highlight: true },
+      { year: 1964, title: "LBJ'nin 'Büyük Toplum' Vizyonu", desc: "ABD Başkanı Lyndon B. Johnson 'Büyük Toplum' programını açıkladı.", emoji: "🇺🇸" },
+      { year: 1965, title: "Beatles 1 Numarada", desc: "Beatles'ın 'Ticket to Ride' single'ı listelerin zirvesine çıktı.", emoji: "🎸" },
+      { year: 1966, title: "Emmy'de Dick Van Dyke ve Mary Tyler Moore", desc: "18. Emmy Ödülleri: 'The Fugitive', Dick Van Dyke ve Mary Tyler Moore kazandı.", emoji: "🌟" },
+      { year: 1967, title: "Tiran Boğazı Kapatıldı", desc: "Mısır Devlet Başkanı Nasır, Tiran Boğazı'nı İsrail'e kapattı.", emoji: "🔥" },
+      { year: 1968, title: "Willie Stargell'in Rekor Gecesi", desc: "Willie Stargell bir maçta 3 ev koşusu, 1 çift ve 1 tekli vuruş yaparak Cubs'ı 13-6 yendi.", emoji: "🏟️" },
+      { year: 1969, title: "Apollo 10 Ay'ın 15 km Üzerinde", desc: "Stafford ve Cernan, Apollo 10 Ay modülünü Ay yüzeyinin 15 km üzerinden geçirdi.", emoji: "🌙", highlight: true },
+      { year: 1972, title: "Seylan, Sri Lanka Oldu", desc: "Seylan anayasasını onayladı ve Sri Lanka Cumhuriyeti adını aldı. Nixon Moskova'yı ziyaret etti.", emoji: "🏛️" },
+      { year: 1973, title: "Nixon Watergate'i İtiraf Etti", desc: "Başkan Nixon, Watergate skandalındaki rolünü itiraf etti.", emoji: "🎙️", highlight: true },
+      { year: 1974, title: "Julie Andrews & Jackie Gleason", desc: "'Julie and Jackie: How Sweet It Is' müzik ve komedi özel programı ABC-TV'de yayınlandı.", emoji: "🎭" },
+      { year: 1977, title: "Orient Express Son Seferini Yaptı", desc: "94 yıllık efsanevi Orient Express, Avrupa'daki son tarifeli seferini gerçekleştirdi.", emoji: "🚂", highlight: true },
+      { year: 1979, title: "Kanada'da İktidar Değişti", desc: "Kanada'da muhafazakârlar seçimi kazandı. Joseph Clark, Pierre Trudeau'nun yerine Başbakan oldu.", emoji: "🍁" },
+      { year: 1980, title: "PAC-MAN Doğdu!", desc: "Toru Iwatani'nin yarattığı efsanevi video oyunu Pac-Man ilk kez Japonya'da piyasaya sürüldü.", emoji: "🟡", highlight: true },
+      { year: 1985, title: "Son James Bond Filmi: Roger Moore", desc: "'A View to a Kill' — Roger Moore'un son Bond filmi prömiyerini yaptı.", emoji: "🎬" },
+      { year: 1986, title: "Cher Canlı Yayında Olay Yarattı", desc: "Şarkıcı ve aktris Cher, David Letterman'ın programında canlı yayında olay yarattı.", emoji: "🎤" },
+      { year: 1987, title: "Rick Hansen'in Dünya Turu", desc: "Tekerlekli sandalyesiyle dünya turu yapan Rick Hansen, Vancouver'da turunu tamamladı.", emoji: "♿", highlight: true },
+      { year: 1990, title: "Windows 3.0 Çıktı", desc: "Microsoft, Windows 3.0'ı piyasaya sürdü. Kuzey ve Güney Yemen birleşerek Yemen Cumhuriyeti'ni kurdu.", emoji: "🖥️", highlight: true },
+      { year: 1992, title: "Johnny Carson Veda Etti", desc: "Johnny Carson, 'The Tonight Show' sunuculuğunda son kez ekrana çıktı. Bir devir kapandı.", emoji: "📺", highlight: true },
+      { year: 1993, title: "Riddick Bowe Şampiyon", desc: "Riddick Bowe, Jesse Ferguson'u 2. rauntta TKO ile yenerek ağır sıklet boks şampiyonluğunu korudu.", emoji: "🥊" },
+      { year: 1994, title: "Toronto Raptors Doğdu", desc: "Toronto NBA takımı 'Raptors' ismini ve logosunu tanıttı.", emoji: "🏀" },
+      { year: 1997, title: "İlk Kadın Bombardıman Pilotu", desc: "ABD Hava Kuvvetleri'nin ilk kadın bombardıman pilotu Kelly Flinn terhis kabul etti.", emoji: "✈️" },
+      { year: 1998, title: "Lewinsky Skandalı", desc: "Federal yargıç, Gizli Servis ajanlarının Lewinsky skandalında ifade verebileceğine karar verdi.", emoji: "⚖️" },
+      { year: 2001, title: "Laureus Ödülleri: Tiger Woods", desc: "Laureus Dünya Spor Ödülleri'nde Tiger Woods yılın sporcusu seçildi.", emoji: "⛳" },
+      { year: 2002, title: "Adalet Geç de Olsa Tecelli Etti", desc: "Alabama'da eski Ku Klux Klan üyesi, 1963'teki kilise bombalamasından mahkûm edildi.", emoji: "⚖️", highlight: true },
+      { year: 2003, title: "Annika Sörenstam Tarihe Geçti", desc: "Annika Sörenstam, 58 yılda PGA Tour'da oynayan ilk kadın golfçü oldu.", emoji: "⛳" },
+      { year: 2004, title: "Cannes'da Belgesel Şoku", desc: "57. Cannes'da Michael Moore'un 'Fahrenheit 9/11'i Altın Palmiye kazandı — ilk belgesel!", emoji: "🎬", highlight: true },
+      { year: 2005, title: "Cannes'da 'Çocuk' Kazandı", desc: "58. Cannes'da Dardenne Kardeşlerin 'L'Enfant' (Çocuk) filmi Altın Palmiye'yi kazandı.", emoji: "🏆" },
+      { year: 2006, title: "Karadağ Bağımsızlığa Oy Verdi", desc: "Karadağ bağımsızlık referandumunda %55.4 ile bağımsızlığa evet dedi.", emoji: "🗳️", highlight: true },
+    ];
+
+    // Render Timeline
+    const timeline = document.getElementById('timeline');
+    timelineData.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = `timeline-item${item.highlight ? ' highlight' : ''}`;
+      div.innerHTML = `
+        <div class="timeline-card">
+          <div class="card-content">
+            <span class="card-emoji">${item.emoji}</span>
+            <div class="card-text">
+              <div class="card-year playfair">${item.year}</div>
+              <div class="card-title playfair">${item.title}</div>
+              <div class="card-desc">${item.desc}</div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-spacer"></div>
+      `;
+      timeline.appendChild(div);
+    });
+
+    // Star Background
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.3,
+        opacity: Math.random(),
+        twinkleSpeed: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
+      });
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.opacity += star.twinkleSpeed;
+        if (star.opacity >= 1 || star.opacity <= 0.1) {
+          star.twinkleSpeed = -star.twinkleSpeed;
+        }
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+
+    // Intersection Observer for Timeline
+    const observerOptions = { threshold: 0.2 };
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      timelineObserver.observe(item);
+    });
+
+    // Final Section Animation
+    let finalAnimated = false;
+    const finalSection = document.getElementById('final');
+    const finalObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !finalAnimated) {
+          finalAnimated = true;
+          animateFinal();
+        }
+      });
+    }, { threshold: 0.25 });
+    finalObserver.observe(finalSection);
+
+    function animateFinal() {
+      const pretext = document.getElementById('finalPretext');
+      const year = document.getElementById('finalYear');
+      const date = document.getElementById('finalDate');
+      const divider = document.getElementById('finalDivider');
+      const wings = document.getElementById('finalWings');
+      const message = document.getElementById('finalMessage');
+      const emotional = document.getElementById('finalEmotional');
+      const glow = document.getElementById('finalGlow');
+
+      setTimeout(() => pretext.classList.add('visible'), 200);
+      setTimeout(() => {
+        year.classList.add('visible');
+        glow.classList.add('visible');
+      }, 1200);
+      setTimeout(() => date.classList.add('visible'), 2400);
+      setTimeout(() => divider.classList.add('visible'), 2800);
+      setTimeout(() => {
+        wings.classList.add('visible');
+        createParticles();
+      }, 3500);
+      setTimeout(() => message.classList.add('visible'), 4800);
+      setTimeout(() => emotional.classList.add('visible'), 6200);
+    }
+
+    // Floating Particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = 2 + Math.random() * 5;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.bottom = '-10px';
+        particle.style.animationDuration = (3 + Math.random() * 5) + 's';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        container.appendChild(particle);
+      }
+    }
+  </script>
+</body>
+</html>
