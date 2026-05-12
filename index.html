@@ -733,6 +733,210 @@
       background: rgba(251,191,36,0.3);
       color: white;
     }
+
+    /* ==================== QUIZ SECTION ==================== */
+    .quiz-section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+
+    .quiz-intro {
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .quiz-intro.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .quiz-intro-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 0 auto 24px;
+    }
+
+    .quiz-intro p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .quiz-intro h3 {
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .quiz-intro h3 span {
+      background: linear-gradient(to right, #fcd34d, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .quiz-card {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.6s ease;
+    }
+
+    .quiz-card.active {
+      display: block;
+    }
+
+    .quiz-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .quiz-step {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: rgba(251,191,36,0.5);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .quiz-song {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .quiz-lyrics {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-style: italic;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .quiz-question {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-option {
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .quiz-option:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+    }
+
+    .quiz-option .option-label {
+      display: inline-block;
+      font-weight: 600;
+      color: rgba(251,191,36,0.7);
+      margin-right: 8px;
+      font-size: 0.8rem;
+    }
+
+    .quiz-option.correct {
+      background: rgba(34,197,94,0.1);
+      border-color: rgba(34,197,94,0.3);
+      color: rgba(34,197,94,0.9);
+    }
+
+    .quiz-option.wrong {
+      background: rgba(239,68,68,0.1);
+      border-color: rgba(239,68,68,0.3);
+      color: rgba(239,68,68,0.8);
+    }
+
+    /* Quiz success */
+    .quiz-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      opacity: 0;
+      transition: all 1s ease;
+    }
+
+    .quiz-success.active {
+      display: block;
+    }
+
+    .quiz-success.show {
+      opacity: 1;
+    }
+
+    .quiz-success .success-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .quiz-success h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 12px;
+    }
+
+    .quiz-success p {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+
+    .quiz-success .redirect-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, rgba(251,191,36,0.15), rgba(251,191,36,0.05));
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 8px;
+      color: #fcd34d;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .quiz-success .redirect-btn:hover {
+      background: linear-gradient(135deg, rgba(251,191,36,0.25), rgba(251,191,36,0.1));
+      border-color: rgba(251,191,36,0.5);
+      box-shadow: 0 0 25px rgba(251,191,36,0.1);
+    }
   </style>
 </head>
 <body>
@@ -807,6 +1011,96 @@
           <span>🤍</span>
           <span>💛</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Section -->
+  <section class="quiz-section" id="quizSection">
+    <div class="quiz-intro" id="quizIntro">
+      <div class="quiz-intro-line"></div>
+      <p>ama daha bitmedi</p>
+      <h3 class="playfair">Seni tanıyor muyum, <span>bakalım?</span></h3>
+    </div>
+
+    <div class="quiz-container" id="quizContainer">
+      <!-- Question 1 -->
+      <div class="quiz-card active" id="q1">
+        <div class="quiz-step">Soru 1 / 3</div>
+        <div class="quiz-song">Barış Manço — Kara Sevda</div>
+        <div class="quiz-lyrics">
+          "Kara sevda", "kara sevda" dedikleri<br>
+          daha ne olabilir ki?<br>
+          Kara sevda, kara sevda,<br>
+          seni benden kim ayırabilir ki?
+        </div>
+        <div class="quiz-question">Bu sözlerden sonra hangi söz gelir?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="checkAnswer(1, 'A', this)">
+            <span class="option-label">A</span>
+            "Çocukça bir aşk" deyip de geçme, sakın gülme halime<br>
+            Nasıl olduğunu anlayamadım ama seviyorum seni delicesine
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(1, 'B', this)">
+            <span class="option-label">B</span>
+            Nasıl anlatsam bilemiyorum, gözlerim kararıyor<br>
+            Tepetaklak oldu dünya tersine sanki (Sanki, sanki)
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="quiz-card" id="q2">
+        <div class="quiz-step">Soru 2 / 3</div>
+        <div class="quiz-song">Gökhan Türkmen — Sen İstanbul'sun</div>
+        <div class="quiz-lyrics">
+          Yürüdüm biraz seni düşledim<br>
+          Umudumu seninle süsledim
+        </div>
+        <div class="quiz-question">Bu sözlerden sonra ne gelir?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="checkAnswer(2, 'A', this)">
+            <span class="option-label">A</span>
+            Köşedeki çiçekçi, seni sordu bu sabah<br>
+            Burada yok dedim, selam söyledi
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(2, 'B', this)">
+            <span class="option-label">B</span>
+            Ne dar sokaklar, ne boş duraklar<br>
+            Seni unutmama yardım etti
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="quiz-card" id="q3">
+        <div class="quiz-step">Soru 3 / 3</div>
+        <div class="quiz-song">Gökhan Türkmen — Çatı Katı</div>
+        <div class="quiz-lyrics">
+          Şimdi çatı katında inziva vakti<br>
+          Nerede aranacak haklının hakkı?
+        </div>
+        <div class="quiz-question">Bu sözlerden sonra hangi söz gelir?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="checkAnswer(3, 'A', this)">
+            <span class="option-label">A</span>
+            Demek ki elleri boş dönmekte varmış<br>
+            Bu günleri görmekte varmış
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(3, 'B', this)">
+            <span class="option-label">B</span>
+            Dinlemeliydim vaktinde aklı<br>
+            Seni unutmaya çalışmakta varmış
+          </div>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="quiz-success" id="quizSuccess">
+        <div class="success-icon">🎉</div>
+        <h3 class="playfair">Hepsini bildin!</h3>
+        <p>Seni bekleyen bir şey daha var...</p>
+        <a href="https://hearsif.github.io/archiv.github.io/" class="redirect-btn">Gizli Arşivi Aç →</a>
       </div>
     </div>
   </section>
@@ -993,6 +1287,76 @@
         particle.style.animationDuration = (3 + Math.random() * 5) + 's';
         particle.style.animationDelay = Math.random() * 6 + 's';
         container.appendChild(particle);
+      }
+    }
+
+    // ==================== QUIZ ====================
+    const correctAnswers = { 1: 'A', 2: 'B', 3: 'B' };
+    let quizLocked = false;
+
+    // Quiz intro observer
+    const quizObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Show first question
+          setTimeout(() => {
+            const q1 = document.getElementById('q1');
+            q1.classList.add('active');
+            setTimeout(() => q1.classList.add('show'), 50);
+          }, 600);
+        }
+      });
+    }, { threshold: 0.3 });
+    quizObserver.observe(document.getElementById('quizIntro'));
+
+    function checkAnswer(questionNum, answer, el) {
+      if (quizLocked) return;
+      quizLocked = true;
+
+      const isCorrect = correctAnswers[questionNum] === answer;
+
+      if (isCorrect) {
+        el.classList.add('correct');
+
+        // Disable other options
+        const options = el.parentElement.querySelectorAll('.quiz-option');
+        options.forEach(opt => { opt.style.pointerEvents = 'none'; });
+
+        setTimeout(() => {
+          if (questionNum < 3) {
+            // Go to next question
+            const current = document.getElementById('q' + questionNum);
+            const next = document.getElementById('q' + (questionNum + 1));
+
+            current.classList.remove('show');
+            setTimeout(() => {
+              current.classList.remove('active');
+              next.classList.add('active');
+              setTimeout(() => {
+                next.classList.add('show');
+                quizLocked = false;
+              }, 50);
+            }, 400);
+          } else {
+            // All correct — show success
+            const current = document.getElementById('q3');
+            const success = document.getElementById('quizSuccess');
+
+            current.classList.remove('show');
+            setTimeout(() => {
+              current.classList.remove('active');
+              success.classList.add('active');
+              setTimeout(() => success.classList.add('show'), 50);
+            }, 400);
+          }
+        }, 1000);
+      } else {
+        el.classList.add('wrong');
+
+        setTimeout(() => {
+          location.reload();
+        }, 1200);
       }
     }
   </script>
